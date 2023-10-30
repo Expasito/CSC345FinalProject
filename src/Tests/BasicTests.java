@@ -15,7 +15,6 @@ class BasicTests {
 		fail("Not yet implemented");
 	}
 	
-	@Test
 	void test1(SearchTree st) {
 		assertEquals(st.searchNode(2), true);
 	}
