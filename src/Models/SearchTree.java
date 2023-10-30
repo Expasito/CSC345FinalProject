@@ -7,7 +7,7 @@ public interface SearchTree {
 	 * @param value The integer value to add to the tree
 	 * @return If the value was already in the tree
 	 */
-	public boolean addNode(int value);
+	public boolean addNode(Node node);
 
 	/**
 	 * searchNode searches for a value in the tree.

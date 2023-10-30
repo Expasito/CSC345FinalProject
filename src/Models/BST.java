@@ -3,18 +3,6 @@ package Models;
 
 
 public class BST implements SearchTree {
-	
-	class Node {
-		Node left;
-		Node right;
-		int value;
-		public Node(int value) {
-			left = null;
-			right = null;
-			this.value = value;
-		}
-		
-	}
 
 	Node root;
 	
@@ -23,7 +11,7 @@ public class BST implements SearchTree {
 	}
 
 	@Override
-	public boolean addNode(int value) {
+	public boolean addNode(Node node) {
 		// TODO Auto-generated method stub
 		return false;
 	}

@@ -4,20 +4,6 @@ package Models;
 
 public class Splay implements SearchTree {
 	
-	class Node {
-		Node left;
-		Node right;
-		Node parent;
-		int value;
-		
-		public Node(int value) {
-			left = null;
-			right = null;
-			parent = null;
-			this.value = value;
-			
-		}
-	}
 	
 	Node root;
 	
@@ -26,8 +12,7 @@ public class Splay implements SearchTree {
 	}
 
 	@Override
-	public boolean addNode(int value) {
-		Node node = new Node(value);
+	public boolean addNode(Node node) {
 		if(root == null) {
 			root = node;
 		}else {
