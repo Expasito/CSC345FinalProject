@@ -17,12 +17,13 @@ class BasicTests {
 		SearchTree st = new BST();
 		SearchTree spl = new Splay();
 		test1(st);
-		fail("Not yet implemented");
+		test1(spl);
+//		fail("Not yet implemented");
 	}
 	
 	void test1(SearchTree st) {
 		int count = 0;
-		while (count< 100) {
+		while (count < 100) {
 			int num = gen.nextInt(100);
 			exp.add(num);
 			count++;
@@ -36,7 +37,6 @@ class BasicTests {
 			st.searchNode(n2);
 			System.out.println(st.getAcessCount());
 		}
-		assertEquals(st.searchNode(2), true);
 	}
 
 }

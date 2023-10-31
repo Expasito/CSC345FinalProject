@@ -12,9 +12,8 @@ public class Splay implements SearchTree {
 	}
 
 	@Override
-	public boolean addNode(Node node) {
+	public void addNode(Node node) {
 		root = addNode(root, node);
-		return true;
 	}
 	
 	private Node addNode(Node root, Node node) {

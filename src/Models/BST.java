@@ -9,9 +9,8 @@ public class BST implements SearchTree {
 	}
 
 	@Override
-	public boolean addNode(Node node) {
+	public void addNode(Node node) {
 		root = addNode(this.root, node);
-		return true;
 	}
 
 	private Node addNode(Node parent, Node node) {
