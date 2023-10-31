@@ -89,7 +89,7 @@ public class Splay implements SearchTree {
 		log(s.root);
 		System.out.println("");
 		
-		System.out.println(s.searchNode(1));
+		System.out.println(s.searchNode(3));
 //		System.out.println(s.root);
 	}
 
