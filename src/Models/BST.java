@@ -1,24 +1,49 @@
 package Models;
 
-
-
 public class BST implements SearchTree {
 
 	Node root;
-	
+
 	public BST() {
 		root = null;
 	}
 
 	@Override
 	public boolean addNode(Node node) {
-		// TODO Auto-generated method stub
-		return false;
+		root = addNode(this.root, node);
+		return true;
+	}
+
+	private Node addNode(Node parent, Node node) {
+		if (parent == null) {
+			parent = node;
+		}
+
+		if (node.value < parent.value) {
+			parent.left = addNode(parent.left, node);
+		}
+
+		if (node.value > parent.value) {
+			parent.right = addNode(parent.right, node);
+		}
+
+		return parent;
 	}
 
 	@Override
 	public boolean searchNode(int value) {
-		// TODO Auto-generated method stub
+		return searchNode(this.root, value);
+	}
+
+	private boolean searchNode(Node root, int value) {
+		if (root == null)
+			return false;
+		if (value == root.value)
+			return true;
+		if (value < root.value)
+			return searchNode(root.left, value);
+		if (value > root.value)
+			return searchNode(root.right, value);
 		return false;
 	}
 
@@ -32,9 +57,7 @@ public class BST implements SearchTree {
 	public int clearAcessCount() {
 		// TODO Auto-generated method stub
 		return 0;
+
 	}
 
-
-
-	
 }
