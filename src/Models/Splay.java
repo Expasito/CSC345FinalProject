@@ -38,9 +38,9 @@ public class Splay implements SearchTree {
 
 	@Override
 	public boolean searchNode(int value) {
-		accessCount++;
 		Node base = root;
 		while(base != null) {
+			accessCount++;
 			if(base.value > value) {
 				base = base.left;
 			}
@@ -48,6 +48,8 @@ public class Splay implements SearchTree {
 				base = base.right;
 			}
 			if(base.value == value) {
+				// add 1 to the number of times the node has been searched for
+				base.visited++;
 				return true;
 			}
 		}
@@ -97,7 +99,6 @@ public class Splay implements SearchTree {
 		System.out.println("");
 		
 		System.out.println(s.searchNode(3));
-//		System.out.println(s.root);
 	}
 
 }
