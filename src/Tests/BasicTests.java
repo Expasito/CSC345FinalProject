@@ -16,7 +16,7 @@ class BasicTests {
 	void test() {
 		SearchTree st = new BST();
 		SearchTree spl = new Splay();
-		test1(st);
+		//test1(st);
 		test2(st, spl);
 		fail("Not yet implemented");
 	}
@@ -53,9 +53,11 @@ class BasicTests {
 				Node con = new Node(35);
 				spl.addNode(con);
 				st.addNode(con);
+				
 			}else {
 			spl.addNode(inst);
 			st.addNode(inst);
+			System.out.println("add node "+"splay"+spl.getAcessCount()+"bst "+st.getAcessCount());
 		}
 		}
 		for(int j =0;j<500;j++) {
@@ -64,15 +66,15 @@ class BasicTests {
 				int nCon = 35;
 				st.searchNode(nCon);
 				spl.searchNode(nCon);
-				System.out.println("control node "+nCon+"get access count of control for bst "+st.getAcessCount()
-				+"splay access count "+spl.getAcessCount());
+				//System.out.println("control node "+nCon+"get access count of control for bst "+st.getAcessCount()
+				//+"splay access count "+spl.getAcessCount());
 				
 			}else {
 			st.searchNode(n3);
 			spl.searchNode(n3);
 			}
-			System.out.println("node "+n3+"access count "+ st.getAcessCount());
-			System.out.println("for splay: node "+n3+"access count "+spl.getAcessCount());
+			//System.out.println("node "+n3+"access count "+ st.getAcessCount());
+			//System.out.println("for splay: node "+n3+"access count "+spl.getAcessCount());
 			
 		}
 	}
