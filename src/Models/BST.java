@@ -1,6 +1,8 @@
 package Models;
 
 public class BST implements SearchTree {
+	
+	private int accessCount = 0;
 
 	Node root;
 
@@ -14,6 +16,7 @@ public class BST implements SearchTree {
 	}
 
 	private Node addNode(Node parent, Node node) {
+		accessCount++;
 		if (parent == null) {
 			parent = node;
 		}
@@ -35,6 +38,7 @@ public class BST implements SearchTree {
 	}
 
 	private boolean searchNode(Node root, int value) {
+		accessCount ++;
 		if (root == null)
 			return false;
 		if (value == root.value)
@@ -48,15 +52,49 @@ public class BST implements SearchTree {
 
 	@Override
 	public int getAcessCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		return accessCount;
+
 	}
 
 	@Override
 	public int clearAcessCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		int temp = accessCount;
+		accessCount = 0;
+		return temp;
 
+	}
+	
+	public void log() {
+		System.out.println("Access Count: " + accessCount);
+		log(root);
+	}
+	
+	private static void log(Node root) {
+		if(root == null) {
+			// do nothing
+		}else {
+			if(root.left != null) {
+				log(root.left);
+			}
+			System.out.print(root.value + ", ");
+			if(root.right != null) {
+				log(root.right);
+			}
+		}
+	}
+	
+	public static void main(String[] args) {
+		BST s = new BST();
+		s.addNode(new Node(1));
+		s.addNode(new Node(2));
+		s.addNode(new Node(3));
+		s.addNode(new Node(0));
+		s.addNode(new Node(-2));
+		
+		s.log();
+		System.out.println("");
+		
+		System.out.println(s.searchNode(3));
 	}
 
 }

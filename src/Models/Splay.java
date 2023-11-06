@@ -4,6 +4,7 @@ package Models;
 
 public class Splay implements SearchTree {
 	
+	private int accessCount = 0;
 	
 	Node root;
 	
@@ -17,6 +18,7 @@ public class Splay implements SearchTree {
 	}
 	
 	private Node addNode(Node root, Node node) {
+		accessCount++;
 		if(root == null) {
 			root = node;
 			return root;
@@ -36,6 +38,7 @@ public class Splay implements SearchTree {
 
 	@Override
 	public boolean searchNode(int value) {
+		accessCount++;
 		Node base = root;
 		while(base != null) {
 			if(base.value > value) {
@@ -53,17 +56,22 @@ public class Splay implements SearchTree {
 
 	@Override
 	public int getAcessCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		return accessCount;
 	}
 
 	@Override
 	public int clearAcessCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		int temp = accessCount;
+		accessCount = 0;
+		return temp;
 	}
 	
-	public static void log(Node root) {
+	public void log() {
+		System.out.println("Access Count: " + accessCount);
+		log(root);
+	}
+	
+	private static void log(Node root) {
 		if(root == null) {
 			// do nothing
 		}else {
@@ -85,7 +93,7 @@ public class Splay implements SearchTree {
 		s.addNode(new Node(0));
 		s.addNode(new Node(-2));
 		
-		log(s.root);
+		s.log();
 		System.out.println("");
 		
 		System.out.println(s.searchNode(3));
