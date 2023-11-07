@@ -33,10 +33,10 @@ public class BST implements SearchTree {
 	}
 
 	private Node searchNodeRecursive(Node current, int value) {
-		accessCount++;
 		if (current == null)
 			return null;
 
+		accessCount++;
 		if (current.value == value) {
 			return current;
 		}

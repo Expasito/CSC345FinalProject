@@ -25,9 +25,11 @@ public class Splay implements SearchTree {
 		}else {
 			if(root.value > node.value) {
 				root.left = addNode(root.left,node);
+				root.left.parent = root;
 			}
 			else if(root.value < node.value) {
 				root.right = addNode(root.right, node);
+				root.right.parent = root;
 			} else {
 				// Nothing, duplicate value
 			}
@@ -44,16 +46,21 @@ public class Splay implements SearchTree {
 			if(base.value > value) {
 				base = base.left;
 			}
-			if(base.value < value) {
+			else if(base.value < value) {
 				base = base.right;
 			}
-			if(base.value == value) {
+			else if(base.value == value) {
 				// add 1 to the number of times the node has been searched for
 				base.visited++;
+				splay();
 				return true;
 			}
 		}
 		return false;
+	}
+	
+	private void splay() {
+		
 	}
 
 	@Override

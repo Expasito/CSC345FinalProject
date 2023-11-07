@@ -18,7 +18,8 @@ class BasicTests {
 		SearchTree spl = new Splay();
 		//test1(st);
 		test2(st, spl);
-		fail("Not yet implemented");
+//		fail("Not yet implemented");
+
 	}
 	
 	void test1(SearchTree st) {
@@ -66,15 +67,15 @@ class BasicTests {
 				int nCon = 35;
 				st.searchNode(nCon);
 				spl.searchNode(nCon);
-				//System.out.println("control node "+nCon+"get access count of control for bst "+st.getAcessCount()
-				//+"splay access count "+spl.getAcessCount());
+				System.out.println("control node "+nCon+"get access count of control for bst "+st.getAcessCount()
+				+"splay access count "+spl.getAcessCount());
 				
 			}else {
 			st.searchNode(n3);
 			spl.searchNode(n3);
 			}
-			//System.out.println("node "+n3+"access count "+ st.getAcessCount());
-			//System.out.println("for splay: node "+n3+"access count "+spl.getAcessCount());
+			System.out.println("node "+n3+"access count "+ st.getAcessCount());
+			System.out.println("for splay: node "+n3+"access count "+spl.getAcessCount());
 			
 		}
 	}
