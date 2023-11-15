@@ -63,18 +63,25 @@ public class Splay implements SearchTree {
 		
 		Node par = n.parent;
 		
+		// incase of the root being the searched value
+		if(par == null) {
+			return;
+		}
+		
+		// right rotate parent
 		if(par.left == n) {
-			// right rotate parent
 			
 			// swap parents
 			Node par_ = par.parent;
 			par.parent = n;
 			n.parent = par_;
 			
+			// swap nodes
 			Node r = n.right;
 			n.right = par;
 			par.left = r;
 			
+			// now update parent's children
 			if(par_==null) {
 				root = n;
 				return;
@@ -88,18 +95,21 @@ public class Splay implements SearchTree {
 			
 			splay(n);
 			
-		}else if(par.right == n) {
-			// left rotate parent
+		}
+		// left rotate parent
+		else if(par.right == n) {
 			
 			// swap parents
 			Node par_ = par.parent;
 			par.parent = n;
 			n.parent = par_;
 			
+			// swap nodes
 			Node l = n.left;
 			n.left = par;
 			par.right = l;
 			
+			// now update parent's children
 			if(par_==null) {
 				root = n;
 				return;
@@ -119,6 +129,8 @@ public class Splay implements SearchTree {
 		}
 
 	}
+	
+
 	
 
 
