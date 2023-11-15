@@ -52,44 +52,75 @@ public class Splay implements SearchTree {
 			else if(base.value == value) {
 				// add 1 to the number of times the node has been searched for
 				base.visited++;
-				splay();
+				splay(base);
 				return true;
 			}
 		}
 		return false;
 	}
 	
-	private void splay() {
-		
-	}
-	
-	private static Node leftRotate(Node n) {
-		Node x = n.right;
-		n.right = x.left;
-		x.left = n;
+	private void splay(Node n) {
 		
 		Node par = n.parent;
-		n.parent = x;
-		x.parent = par;
-		return x;
-	}
-	
-	private static Node rightRotate(Node n) {
-		Node x = n.left;
-		n.left = x.right;
-		x.right = n;
 		
-		Node par = n.parent;
-		n.parent = x;
-		x.parent = par;
-		return x;
+		if(par.left == n) {
+			// right rotate parent
+			
+			// swap parents
+			Node par_ = par.parent;
+			par.parent = n;
+			n.parent = par_;
+			
+			Node r = n.right;
+			n.right = par;
+			par.left = r;
+			
+			if(par_==null) {
+				root = n;
+				return;
+			}
+			if(par_.left == par) {
+				par_.left = n;
+			}else if(par_.right == par) {
+				par_.right = n;
+			}
+			
+			
+			splay(n);
+			
+		}else if(par.right == n) {
+			// left rotate parent
+			
+			// swap parents
+			Node par_ = par.parent;
+			par.parent = n;
+			n.parent = par_;
+			
+			Node l = n.left;
+			n.left = par;
+			par.right = l;
+			
+			if(par_==null) {
+				root = n;
+				return;
+			}
+			if(par_.left == par) {
+				par_.left = n;
+			}else if(par_.right == par) {
+				par_.right = n;
+			}
+			
+			
+			splay(n);
+			
+			
+			
+			
+		}
+
 	}
 	
-//	// Right rotation
-//	private static Node zig(Node n) {
-//		Node x = n.left;
-//		n.left=x.right;
-//	}
+
 
 	@Override
 	public int getAcessCount() {
@@ -249,11 +280,11 @@ public class Splay implements SearchTree {
 		s.addNode(new Node(4));
 		s.addNode(new Node(3));
 		s.addNode(new Node(5));
-//		s.addNode(new Node(4));
+		s.addNode(new Node(4));
 //		s.addNode(new Node(2));
 //		s.addNode(new Node(1));
 //		s.addNode(new Node(3));
-//		s.addNode(new Node(8));
+		s.addNode(new Node(8));
 //		s.addNode(new Node(7));
 //		s.addNode(new Node(9));
 //		s.addNode(new Node(0));
@@ -272,15 +303,29 @@ public class Splay implements SearchTree {
 		
 //		print(s.root, 5);
 		
-		s.root.left = rightRotate(s.root.left);
+//		s.root.left = rightRotate(s.root.left);
 		
-		s.root = rightRotate(s.root);
+//		s.root = rightRotate(s.root);
 		
 //		print(s.root,5);
 		
-		print2(s.root);
+//		print2(s.root);
 		
-//		System.out.println(s.searchNode(3));
+//		print(s.root, 5);
+		
+		
+		s.log();
+		
+		System.out.println(s.searchNode(5));
+		
+		
+		s.log();
+		
+		System.out.println(s.searchNode(8));
+		
+		s.log();
+		
+//		print(s.root, 5);
 	}
 
 }

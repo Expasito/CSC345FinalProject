@@ -15,5 +15,9 @@ public class Node {
 		this.value = value;
 		visited = 1;
 	}
+	
+	public String toString() {
+		return "Node: (" + String.valueOf(value) + ")";
+	}
 
 }
