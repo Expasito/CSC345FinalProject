@@ -137,6 +137,7 @@ public class Splay implements SearchTree {
 	public void log() {
 		System.out.println("Access Count: " + accessCount);
 		log(root);
+		System.out.println("");
 	}
 	
 	private static void log(Node root) {
@@ -315,15 +316,18 @@ public class Splay implements SearchTree {
 		
 		
 		s.log();
+		print(s.root,5);
 		
 		System.out.println(s.searchNode(5));
 		
 		
 		s.log();
+		print(s.root,5);
 		
 		System.out.println(s.searchNode(8));
 		
 		s.log();
+		print(s.root,5);
 		
 //		print(s.root, 5);
 	}
