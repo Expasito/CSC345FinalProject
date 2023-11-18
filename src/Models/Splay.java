@@ -1,6 +1,7 @@
 package Models;
 
 import java.util.LinkedList;
+import java.util.Random;
 
 public class Splay implements SearchTree {
 	
@@ -159,7 +160,10 @@ public class Splay implements SearchTree {
 			if(root.left != null) {
 				log(root.left);
 			}
-			System.out.print(root.value + ", ");
+			String par = root.parent==null? "null" : String.valueOf(root.parent.value);
+			String left = root.left == null? "null" : String.valueOf(root.left.value);
+			String right = root.right == null ? "null" : String.valueOf(root.right.value);
+			System.out.print("V: " + root.value + ", " + "P: " + par + " L: " + left + " R: " + right + "   ");
 			if(root.right != null) {
 				log(root.right);
 			}
@@ -221,7 +225,11 @@ public class Splay implements SearchTree {
 				l.addLast(null);
 				l.addLast(null);
 			}else {
-				System.out.print("" + n.value+ "");
+				String par = n.parent==null? "null" : String.valueOf(n.parent.value);
+				String left = n.left == null? "null" : String.valueOf(n.left.value);
+				String right = n.right == null ? "null" : String.valueOf(n.right.value);
+				System.out.print("V: " + n.value + ", " + "P: " + par + " L: " + left + " R: " + right + "   ");
+//				System.out.print("" + n.value+ "");
 
 				// add children
 				l.addLast(n.left);
@@ -294,54 +302,59 @@ public class Splay implements SearchTree {
 		s.addNode(new Node(3));
 		s.addNode(new Node(5));
 		s.addNode(new Node(4));
-//		s.addNode(new Node(2));
-//		s.addNode(new Node(1));
-//		s.addNode(new Node(3));
 		s.addNode(new Node(8));
-//		s.addNode(new Node(7));
-//		s.addNode(new Node(9));
-//		s.addNode(new Node(0));
-////		s.addNode(new Node(10));
-//		s.addNode(new Node(6));
-//		s.addNode(2);
+		s.addNode(new Node(9));
+		s.addNode(new Node(1));
+		s.addNode(new Node(2));
+		s.addNode(new Node(0));
+
 		
-//		s.addNode(new Node(1));
-//		s.addNode(new Node(2));
-//		s.addNode(new Node(3));
-//		s.addNode(new Node(0));
-//		s.addNode(new Node(-2));
 		
 //		s.log();
-//		System.out.println("");
-		
-//		print(s.root, 5);
-		
-//		s.root.left = rightRotate(s.root.left);
-		
-//		s.root = rightRotate(s.root);
-		
-//		print(s.root,5);
-		
-//		print2(s.root);
-		
-//		print(s.root, 5);
 		
 		
-		s.log();
-		print(s.root,5);
-		
-		System.out.println(s.searchNode(5));
-		
-		
-		s.log();
-		print(s.root,5);
+		print(s.root,7);
+//		System.exit(1);
 		
 		System.out.println(s.searchNode(8));
 		
+		
 		s.log();
-		print(s.root,5);
+		print(s.root,7);
+		
+
 		
 //		print(s.root, 5);
+		
+		Random r = new Random(4);
+		
+		int range = 100;
+		
+		System.out.println("Testing rn");
+		
+		Splay splay = new Splay();
+		for(int i=0;i<100;i++) {
+			splay.addNode(new Node(r.nextInt(range)));
+			
+			int guess = r.nextInt(range);
+			
+			boolean found = splay.searchNode(guess);
+			if(found == true) {
+				if(splay.root.value == guess) {
+					System.out.println("Passed");
+				}else {
+					System.out.println("Failed");
+					System.out.println("Searching for: " + guess);
+					print(splay.root,10);
+					System.exit(1);
+				}
+			}
+		}
+//		
+//		System.out.println("Done testing");
+		
+		
+		
 	}
 
 }
