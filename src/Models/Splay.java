@@ -258,12 +258,36 @@ public class Splay implements SearchTree {
 		System.out.println("\n");
 	}
 	
-	private static void print2(Node n) {
-		String[][] grid = new String[3][7];
+	private int maxDist = 0;
+	
+	// returns the height of the tree from n
+	private int getHeight(Node n) {
+		maxDist = 0;
+		LinkedList<Node> nodes = new LinkedList<>();
+		getHeight(n,0);
+		return maxDist;
+
+	}
+	
+	private void getHeight(Node n, int dist) {
+//		System.out.println("Traversing: " + n.value + " dist: " + dist);
+		if(n == null) {
+			if(dist > maxDist) {
+				maxDist = dist;
+			}
+		}else {
+			getHeight(n.left,dist+1);
+			getHeight(n.right, dist+1);
+		}
+	}
+	
+	private static void print2(Splay s, Node n) {
+		int height = s.getHeight(n);
+		String[][] grid = new String[s.getHeight(n)][2*s.getHeight(n)+1];
 		for(int i=0;i<grid.length;i++) {
 			for(int j=0;j<grid[0].length;j++) {
 //				grid[i][j] = String.valueOf(i) + " " + String.valueOf(j);
-				grid[i][j] = "";
+				grid[i][j] = "_";
 			}
 		}
 		
@@ -272,9 +296,30 @@ public class Splay implements SearchTree {
 		
 		int curLevel = 0;
 		
-		grid[0][grid[0].length/2] = "HH";
-		grid[1][grid[0].length/2 -2] = "AA";
-		grid[1][grid[0].length/2 + 2] = "BB";
+		int start = grid[0].length/2;
+		int dx = grid[0].length;
+		while(curLevel < height) {
+			int startCopy = start;
+			while(start < grid[0].length) {
+				grid[curLevel][start] = "A";
+				start = start + dx;
+//				grid[curLevel][start+dx] = "B";
+			}
+			dx = dx/2;
+			
+			start = startCopy/2;
+			
+			curLevel++;
+		}
+		
+		
+//		grid[curLevel][start] = "A";
+//		grid[curLevel][start+dx] = "B";
+//		
+//		
+//		grid[0][grid[0].length/2] = "HH";
+//		grid[1][grid[0].length/2 -2] = "AA";
+//		grid[1][grid[0].length/2 + 2] = "BB";
 		
 		
 		
@@ -299,24 +344,27 @@ public class Splay implements SearchTree {
 		s.addNode(new Node(6));
 		s.addNode(new Node(7));
 		s.addNode(new Node(4));
-		s.addNode(new Node(3));
-		s.addNode(new Node(5));
-		s.addNode(new Node(4));
+//		s.addNode(new Node(3));
+//		s.addNode(new Node(5));
+//		s.addNode(new Node(4));
 		s.addNode(new Node(8));
-		s.addNode(new Node(9));
-		s.addNode(new Node(1));
-		s.addNode(new Node(2));
-		s.addNode(new Node(0));
+//		s.addNode(new Node(9));
+//		s.addNode(new Node(1));
+//		s.addNode(new Node(2));
+//		s.addNode(new Node(0));
 
 		
+		System.out.println("Height: " + s.getHeight(s.root));
 		
 //		s.log();
 		
 		
-		print(s.root,7);
-//		System.exit(1);
+//		System.out.println(s.searchNode(9));
+//		print(s.root,7);
 		
-		System.out.println(s.searchNode(8));
+		print2(s,s.root);
+		System.exit(1);
+		
 		
 		
 		s.log();
