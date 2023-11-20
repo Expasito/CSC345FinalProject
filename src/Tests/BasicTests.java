@@ -22,6 +22,13 @@ class BasicTests {
 
 	}
 	
+	@Test
+	void random_nonrandom() {
+		SearchTree bst = new BST();
+		SearchTree splay = new Splay();
+		test3(bst);
+		test3(splay);
+	}
 	void test1(SearchTree st) {
 		int count = 0;
 		while (count< 100) {
@@ -78,6 +85,51 @@ class BasicTests {
 			System.out.println("for splay: node "+n3+" access count "+spl.getAcessCount());
 			
 		}
+	}
+	
+	/*
+	 * This test focuses on random data with a small set of values to search for
+	 * 100 nodes will be inserted into the tree and 10 nodes will be chosen to be the set to search for. 
+	 * The 10 nodes will be every 10th node inserted
+	 * After inserting all of the nodes, 1 of the 10 nodes will be searched for. This will be repeated 100 times
+	 * 
+	 * 
+	 */
+	void test3(SearchTree st) {
+		st.clearAcessCount();
+		
+		int[] subSet = new int[10];
+		int counter = 0;
+		
+		// create random with seed of 1 to keep it consistent.
+		Random rand = new Random(1);
+		for(int i = 0; i< 100;i++) {
+			int add = rand.nextInt();
+			st.addNode(new Node(add));
+			if(i % 10 == 0) {
+				subSet[counter] = add;
+				counter++;
+			}
+		}
+		
+		System.out.println("Access Count: " + st.getAcessCount());
+		System.out.println("SubSet values:");
+		for(int i = 0;i<10;i++) {
+			System.out.print(subSet[i] + ", ");
+		}
+		System.out.println("");
+		
+		System.out.println("Searching...");
+		
+		for(int i =0;i<100;i++) {
+			int index = rand.nextInt(0,10);
+			int key = subSet[index];
+			st.searchNode(key);
+		}
+		
+		System.out.println("Access Count: " + st.getAcessCount());
+		
+		
 	}
 
 }

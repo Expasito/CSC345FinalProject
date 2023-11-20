@@ -72,6 +72,8 @@ public class Splay implements SearchTree {
 		// right rotate parent
 		if(par.left == n) {
 			
+			accessCount++;
+			
 			
 			// swap n's right child
 			n.parent.left = n.right;
@@ -106,6 +108,8 @@ public class Splay implements SearchTree {
 		}
 		// left rotate parent
 		else if(par.right == n) {
+			
+			accessCount++;
 			
 			// swap n's left child
 			n.parent.right = n.left;
