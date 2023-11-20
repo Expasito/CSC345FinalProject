@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.*;
 
 import Models.SearchTree;
+import Models.Splay;
 
 class BasicTests {
 	private static Random gen = new Random(System.currentTimeMillis());
@@ -18,9 +19,12 @@ class BasicTests {
 		SearchTree spl2 = new Splay();
 		SearchTree st3 = new BST();
 		SearchTree spl3 = new Splay();
+		SearchTree spl4 = new Splay();
+		SearchTree st4, new BST();
 		test1(st);
 		test2(st2, spl2);
 		test3(st3, spl3);
+		test4(st4, spl4);
 //		fail("Not yet implemented");
 
 	}
@@ -97,5 +101,20 @@ class BasicTests {
 
 		}
 	}
-
+	void test4(SearchTree st, SearchTree spl){
+		int[] testarr = new int[]{0,1,2,3,4,5,6,7,8,9,10,11,12,13,
+		12,11,10,9,8,7,6,5,4,3,2,1};
+		for(int i = 0; i<testarr.length;i++){
+			Node ins = new Node(testarr[i]);
+			st.addNode(ins);
+			spl.addNode(ins);
+		}
+		for(int j =0; j<100;j++){
+			int ran = gen.nextInt(13);
+			st.searchNode(ran);
+			spl.searchNode(ran);
+			System.out.println("access count for bst: "+st.getAcessCount());
+			System.out.println("access count for splay: "+spl.getAcessCount());
+		}
+	}
 }
