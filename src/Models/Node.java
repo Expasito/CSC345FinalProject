@@ -6,9 +6,12 @@ package Models;
  */
 public class Node {
 	
+	// References for each part of the node
 	public Node left;
 	public Node right;
 	public Node parent;
+	
+	// the value of the node
 	public int value;
 	
 	/**

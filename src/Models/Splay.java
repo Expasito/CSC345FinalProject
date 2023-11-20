@@ -1,8 +1,5 @@
 package Models;
 
-import java.util.LinkedList;
-import java.util.Random;
-
 /**
  * Splay is a splay tree with appropriate methods. 
  * A splay tree is a version of a Binary Search Tree where recently searched nodes
@@ -10,12 +7,25 @@ import java.util.Random;
  */
 public class Splay implements SearchTree {
 	
+	// keep track of the access count of the tree
 	private int accessCount = 0;
 	
-	Node root;
+	// The Node reference for the tree
+	private Node root;
 	
+	/**
+	 * default constructor with no root
+	 */
 	public Splay() {
 		root = null;
+	}
+	
+	/**
+	 * construct with root value provided
+	 * @param n The root of the tree
+	 */
+	public Splay(Node n) {
+		root = n;
 	}
 
 	/**
@@ -126,17 +136,17 @@ public class Splay implements SearchTree {
 				n.right.parent = n.parent;
 			}
 			
-			// swap parents
+			// swap parents of n and n's parent references
 			Node par_ = par.parent;
 			par.parent = n;
 			n.parent = par_;
 			
-			// swap nodes
+			// swap nodes of n and the parent
 			Node r = n.right;
 			n.right = par;
 			par.left = r;
 			
-			// now update parent's children
+			// now update the root value if null
 			if(par_== null) {
 				root = n;
 				return;
@@ -165,17 +175,17 @@ public class Splay implements SearchTree {
 				n.left.parent = n.parent;
 			}
 			
-			// swap parents
+			// swap n and n's parent's parent references
 			Node par_ = par.parent;
 			par.parent = n;
 			n.parent = par_;
 			
-			// swap nodes
+			// swap nodes of n and n's parent
 			Node l = n.left;
 			n.left = par;
 			par.right = l;
 			
-			// now update parent's children
+			// now update the root if parent is null
 			if(par_==null) {
 				root = n;
 				return;
@@ -195,210 +205,24 @@ public class Splay implements SearchTree {
 
 	}
 	
-
-	
-
-
+	/**
+	 * getAcessCount returns the current access count of the tree
+	 * @return the current access count
+	 */
 	@Override
 	public int getAcessCount() {
 		return accessCount;
 	}
 
+	/**
+	 * clearAcessCount returns the current access count and sets it to 0
+	 * @return the current acess count before clearning
+	 */
 	@Override
 	public int clearAcessCount() {
 		int temp = accessCount;
 		accessCount = 0;
 		return temp;
-	}
-	
-	public void log() {
-		System.out.println("Access Count: " + accessCount);
-		log(root);
-		System.out.println("");
-	}
-	
-	private static void log(Node root) {
-		if(root == null) {
-			// do nothing
-		}else {
-			if(root.left != null) {
-				log(root.left);
-			}
-			String par = root.parent==null? "null" : String.valueOf(root.parent.value);
-			String left = root.left == null? "null" : String.valueOf(root.left.value);
-			String right = root.right == null ? "null" : String.valueOf(root.right.value);
-			System.out.print("V: " + root.value + ", " + "P: " + par + " L: " + left + " R: " + right + "   ");
-			if(root.right != null) {
-				log(root.right);
-			}
-		}
-	}
-	
-	
-	private int maxDist = 0;
-	
-	// returns the height of the tree from n
-	private int getHeight(Node n) {
-		maxDist = 0;
-		getHeight(n,0);
-		return maxDist;
-
-	}
-	
-	private void getHeight(Node n, int dist) {
-		if(n == null) {
-			if(dist > maxDist) {
-				maxDist = dist;
-			}
-		}else {
-			getHeight(n.left,dist+1);
-			getHeight(n.right, dist+1);
-		}
-	}
-	
-	static class Temp {
-		int height;
-		int index;
-		int dx;
-		Node n;
-		
-		public Temp(int height, int index, Node n, int dx) {
-			this.height = height;
-			this.index = index;
-			this.n = n;
-			this.dx = dx;
-		}
-		
-		public String toString() {
-			return "Temp(Height: " + height + " Index: " + index + " DX: " + dx + " Node: " + n + ")";
-		}
-		
-	}
-	
-	private static void print(Splay s) {
-		Node n = s.root;
-		int height = s.getHeight(n);
-		String[][] grid = new String[height][(int) (Math.pow(2, height)-1)];
-		for(int i=0;i<grid.length;i++) {
-			for(int j=0;j<grid[0].length;j++) {
-				grid[i][j] = " ";
-			}
-		}
-		
-		LinkedList<Node> l = new LinkedList<>();
-		l.addLast(n);
-		
-		LinkedList<Temp> list = new LinkedList<>();
-		list.addLast(new Temp(0,grid[0].length/2, n, (grid[0].length+1)/2));	
-		
-		while(list.isEmpty() == false) {
-			Temp t = list.removeFirst();
-			if(t.n == null) {
-				continue;
-			}
-			
-			String par = t.n.parent==null? "null" : String.valueOf(t.n.parent.value);
-			String left = t.n.left == null? "null" : String.valueOf(t.n.left.value);
-			String right = t.n.right == null ? "null" : String.valueOf(t.n.right.value);
-			String str = "V: " + t.n.value + ", " + "P: " + par + " L: " + left + " R: " + right + "   ";
-			
-//			System.out.println(t);
-			grid[t.height][t.index] = String.valueOf(str);
-			
-			
-			// now add the subnodes
-			int dx = t.dx/2;
-			list.addLast(new Temp(t.height+1, t.index-dx,t.n.left,dx));
-			list.addLast(new Temp(t.height+1, t.index+dx,t.n.right,dx));
-			
-			
-			
-		}
-
-
-		
-		for(int i = 0; i<grid[0].length;i++) {
-			System.out.print("==");
-		}
-		
-		System.out.println("");
-		
-		// print the grid
-		for(int i=0;i<grid.length;i++) {
-			for(int j=0;j<grid[0].length;j++) {
-				System.out.print(grid[i][j] + " ");
-			}
-			System.out.println("");
-		}
-		
-		for(int i = 0; i<grid[0].length;i++) {
-			System.out.print("==");
-		}
-		
-		System.out.println("");
-		
-		
-	}
-	
-
-	
-	public static void main(String[] args) {
-		Splay s = new Splay();
-		
-		s.addNode(new Node(9));
-		s.addNode(new Node(8));
-		s.addNode(new Node(7));
-//		s.addNode(new Node(6));
-//		s.addNode(new Node(5));
-//		s.addNode(new Node(4));
-//		s.addNode(new Node(3));
-//		s.addNode(new Node(2));
-//		s.addNode(new Node(1));
-//		s.addNode(new Node(0));
-
-		
-		s.searchNode(7);
-//		print(s);
-//		System.exit(1);
-		
-//		s.searchNode(9);
-//		s.searchNode(0);
-//		s.searchNode(9);
-//		s.searchNode(6);
-//		s.searchNode(9);
-		
-		
-		Random r = new Random(4);
-
-		
-		
-		int range = 1000;
-		
-		System.out.println("Testing rn");
-		
-		Splay splay = new Splay();
-		for(int i=0;i<10000;i++) {
-			splay.addNode(new Node(r.nextInt(range)));
-			
-			int guess = r.nextInt(range);
-			
-			boolean found = splay.searchNode(guess);
-			if(found == true) {
-				if(splay.root.value == guess) {
-					System.out.println("Passed");
-				}else {
-					System.out.println("Failed");
-					System.out.println("Searching for: " + guess);
-					print(splay);
-					System.exit(1);
-				}
-			}
-		}
-//		
-//		System.out.println("Done testing");
-		
-		
-		
 	}
 
 }

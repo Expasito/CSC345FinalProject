@@ -27,9 +27,9 @@ class BasicTests {
 		SearchTree bst = new BST();
 		SearchTree splay = new Splay();
 		System.out.println("\n\nTesting BST");
-		test3(bst, 100, 5, 100);
+		test3(bst, 100, 5, 1000);
 		System.out.println("\n\nTesting Splay");
-		test3(splay, 100, 5, 100);
+		test3(splay, 100, 5, 1000);
 	}
 	
 	void test1(SearchTree st) {
