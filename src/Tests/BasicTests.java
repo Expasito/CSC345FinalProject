@@ -26,9 +26,12 @@ class BasicTests {
 	void random_nonrandom() {
 		SearchTree bst = new BST();
 		SearchTree splay = new Splay();
-		test3(bst);
-		test3(splay);
+		System.out.println("\n\nTesting BST");
+		test3(bst, 100, 5, 100);
+		System.out.println("\n\nTesting Splay");
+		test3(splay, 100, 5, 100);
 	}
+	
 	void test1(SearchTree st) {
 		int count = 0;
 		while (count< 100) {
@@ -88,46 +91,56 @@ class BasicTests {
 	}
 	
 	/*
+	 * 
+	 * int elements The number of items to add
+	 * int subElements The number of sub elements to add
+	 * int searches The number of searches to perform
+	 * 
 	 * This test focuses on random data with a small set of values to search for
-	 * 100 nodes will be inserted into the tree and 10 nodes will be chosen to be the set to search for. 
-	 * The 10 nodes will be every 10th node inserted
-	 * After inserting all of the nodes, 1 of the 10 nodes will be searched for. This will be repeated 100 times
+	 * 'element' number of  nodes will be inserted into the tree and 'subElements' number of nodes will be chosen to be the set to search for. 
+	 * The subElements will be added linearly throughout adding the nodes to the tree
+	 * After inserting all of the nodes, 1 of the N number of nodes will be searched for. This will be repeated 'searches' times
 	 * 
 	 * 
 	 */
-	void test3(SearchTree st) {
+	void test3(SearchTree st, int elements, int subElements, int searches) {
 		st.clearAcessCount();
 		
-		int[] subSet = new int[10];
+		int[] subSet = new int[subElements];
 		int counter = 0;
 		
+		int mod = elements/ subElements;
+		
 		// create random with seed of 1 to keep it consistent.
-		Random rand = new Random(1);
-		for(int i = 0; i< 100;i++) {
+		Random rand = new Random();
+		for(int i = 0; i< elements;i++) {
 			int add = rand.nextInt();
 			st.addNode(new Node(add));
-			if(i % 10 == 0) {
+			if(i % mod == 0 && counter < subElements) {
 				subSet[counter] = add;
 				counter++;
 			}
 		}
 		
-		System.out.println("Access Count: " + st.getAcessCount());
+		System.out.println("Cost to add elements :: Access Count: " + st.getAcessCount());
+		
 		System.out.println("SubSet values:");
-		for(int i = 0;i<10;i++) {
+		for(int i = 0;i<subElements;i++) {
 			System.out.print(subSet[i] + ", ");
 		}
 		System.out.println("");
 		
+		st.clearAcessCount();
+		
 		System.out.println("Searching...");
 		
-		for(int i =0;i<100;i++) {
-			int index = rand.nextInt(0,10);
+		for(int i =0;i<searches;i++) {
+			int index = rand.nextInt(0,subElements);
 			int key = subSet[index];
 			st.searchNode(key);
 		}
 		
-		System.out.println("Access Count: " + st.getAcessCount());
+		System.out.println("Cost to search elements :: Access Count: " + st.getAcessCount());
 		
 		
 	}
