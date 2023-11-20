@@ -1,5 +1,9 @@
 package Models;
 
+/**
+ * SearchTree is an interface for the basic functionality for a tree structure
+ * used for searching.
+ */
 public interface SearchTree {
 	
 	/**
@@ -16,7 +20,15 @@ public interface SearchTree {
 	public boolean searchNode(int value);
 	
 	
-	// Stuff for measuring access count
+	/**
+	 * getAcessCount returns the acessCount of the tree
+	 * @return The current acessCount of the tree
+	 */
 	public int getAcessCount();
+	
+	/**
+	 * clearAcessCount resets the acessCount of the tree
+	 * @return The current acessCount of the tree before resetting
+	 */
 	public int clearAcessCount();
 }

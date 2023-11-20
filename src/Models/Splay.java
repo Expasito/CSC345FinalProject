@@ -51,8 +51,6 @@ public class Splay implements SearchTree {
 				base = base.right;
 			}
 			else if(base.value == value) {
-				// add 1 to the number of times the node has been searched for
-				base.visited++;
 				splay(base);
 				return true;
 			}
