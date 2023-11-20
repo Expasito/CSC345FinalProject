@@ -72,6 +72,13 @@ public class Splay implements SearchTree {
 		// right rotate parent
 		if(par.left == n) {
 			
+			
+			// swap n's right child
+			n.parent.left = n.right;
+			if(n.right != null) {
+				n.right.parent = n.parent;
+			}
+			
 			// swap parents
 			Node par_ = par.parent;
 			par.parent = n;
@@ -83,7 +90,7 @@ public class Splay implements SearchTree {
 			par.left = r;
 			
 			// now update parent's children
-			if(par_==null) {
+			if(par_== null) {
 				root = n;
 				return;
 			}
@@ -99,6 +106,12 @@ public class Splay implements SearchTree {
 		}
 		// left rotate parent
 		else if(par.right == n) {
+			
+			// swap n's left child
+			n.parent.right = n.left;
+			if(n.left != null) {
+				n.left.parent = n.parent;
+			}
 			
 			// swap parents
 			Node par_ = par.parent;
@@ -171,106 +184,17 @@ public class Splay implements SearchTree {
 	}
 	
 	
-	private static void print(Node root, int height) {
-		
-		int maxHeight = height;
-		LinkedList<Node> l = new LinkedList<>();
-		l.add(root);
-		int counter = 0;
-		int curHeight = 0;
-		String spacing = "";
-		for(int i = 0;i<1;i++) {
-			spacing += "     ";
-		}
-		// now add whitespace according to the height
-		System.out.print(spacing);
-		height--;
-		int middle = 0;
-		while(height != 0) {
-			Node n = l.removeFirst();
-			
-			
-//			if(counter == Math.pow(2, curHeight-1)) {
-//				System.out.print(spacing);
-//				middle++;
-//			}
-//			if(counter == Math.pow(2, curHeight-2)) {
-//				System.out.print(spacing);
-//				middle++;
-//			}
-//			if(counter == Math.pow(2, curHeight-3)) {
-//				System.out.print(spacing);
-//				middle++;
-//			}
-			
-//			for(int i = 2;i<height;i+=2) {
-//				if(middle % i == 0) {
-//					System.out.print("     ");
-//				}
-//			}
-			
-//			if(middle %2 == 0) {
-//				System.out.print(spacing);
-//
-//			}
-//			if(middle % 4 == 0) {
-//				System.out.print(spacing);
-//			}
-
-			middle++;
-			
-			counter++;
-			if(n == null) {
-				System.out.print("_");
-				l.addLast(null);
-				l.addLast(null);
-			}else {
-				String par = n.parent==null? "null" : String.valueOf(n.parent.value);
-				String left = n.left == null? "null" : String.valueOf(n.left.value);
-				String right = n.right == null ? "null" : String.valueOf(n.right.value);
-				System.out.print("V: " + n.value + ", " + "P: " + par + " L: " + left + " R: " + right + "   ");
-//				System.out.print("" + n.value+ "");
-
-				// add children
-				l.addLast(n.left);
-				l.addLast(n.right);
-			}
-			
-			System.out.print(spacing);
-			
-			
-			// end of nodes so go down a level
-			if(Math.pow(2, curHeight) == counter) {
-				curHeight++;
-				System.out.println("");
-				counter = 0;
-				middle=0;
-//				spacing = spacing.substring(0,spacing.length()/2);
-				
-				// now add whitespace according to the height
-				System.out.print(spacing);
-//				System.out.print(" ");
-				height--;
-			}
-			
-		}
-		
-		System.out.println("\n");
-	}
-	
 	private int maxDist = 0;
 	
 	// returns the height of the tree from n
 	private int getHeight(Node n) {
 		maxDist = 0;
-		LinkedList<Node> nodes = new LinkedList<>();
 		getHeight(n,0);
 		return maxDist;
 
 	}
 	
 	private void getHeight(Node n, int dist) {
-//		System.out.println("Traversing: " + n.value + " dist: " + dist);
 		if(n == null) {
 			if(dist > maxDist) {
 				maxDist = dist;
@@ -281,107 +205,128 @@ public class Splay implements SearchTree {
 		}
 	}
 	
-	private static void print2(Splay s, Node n) {
+	static class Temp {
+		int height;
+		int index;
+		int dx;
+		Node n;
+		
+		public Temp(int height, int index, Node n, int dx) {
+			this.height = height;
+			this.index = index;
+			this.n = n;
+			this.dx = dx;
+		}
+		
+		public String toString() {
+			return "Temp(Height: " + height + " Index: " + index + " DX: " + dx + " Node: " + n + ")";
+		}
+		
+	}
+	
+	private static void print(Splay s) {
+		Node n = s.root;
 		int height = s.getHeight(n);
-		String[][] grid = new String[s.getHeight(n)][2*s.getHeight(n)+1];
+		String[][] grid = new String[height][(int) (Math.pow(2, height)-1)];
 		for(int i=0;i<grid.length;i++) {
 			for(int j=0;j<grid[0].length;j++) {
-//				grid[i][j] = String.valueOf(i) + " " + String.valueOf(j);
-				grid[i][j] = "_";
+				grid[i][j] = " ";
 			}
 		}
 		
 		LinkedList<Node> l = new LinkedList<>();
 		l.addLast(n);
 		
-		int curLevel = 0;
+		LinkedList<Temp> list = new LinkedList<>();
+		list.addLast(new Temp(0,grid[0].length/2, n, (grid[0].length+1)/2));	
 		
-		int start = grid[0].length/2;
-		int dx = grid[0].length;
-		while(curLevel < height) {
-			int startCopy = start;
-			while(start < grid[0].length) {
-				grid[curLevel][start] = "A";
-				start = start + dx;
-//				grid[curLevel][start+dx] = "B";
+		while(list.isEmpty() == false) {
+			Temp t = list.removeFirst();
+			if(t.n == null) {
+				continue;
 			}
-			dx = dx/2;
 			
-			start = startCopy/2;
+			String par = t.n.parent==null? "null" : String.valueOf(t.n.parent.value);
+			String left = t.n.left == null? "null" : String.valueOf(t.n.left.value);
+			String right = t.n.right == null ? "null" : String.valueOf(t.n.right.value);
+			String str = "V: " + t.n.value + ", " + "P: " + par + " L: " + left + " R: " + right + "   ";
 			
-			curLevel++;
+//			System.out.println(t);
+			grid[t.height][t.index] = String.valueOf(str);
+			
+			
+			// now add the subnodes
+			int dx = t.dx/2;
+			list.addLast(new Temp(t.height+1, t.index-dx,t.n.left,dx));
+			list.addLast(new Temp(t.height+1, t.index+dx,t.n.right,dx));
+			
+			
+			
+		}
+
+
+		
+		for(int i = 0; i<grid[0].length;i++) {
+			System.out.print("==");
 		}
 		
-		
-//		grid[curLevel][start] = "A";
-//		grid[curLevel][start+dx] = "B";
-//		
-//		
-//		grid[0][grid[0].length/2] = "HH";
-//		grid[1][grid[0].length/2 -2] = "AA";
-//		grid[1][grid[0].length/2 + 2] = "BB";
-		
-		
+		System.out.println("");
 		
 		// print the grid
 		for(int i=0;i<grid.length;i++) {
 			for(int j=0;j<grid[0].length;j++) {
-				System.out.print(grid[i][j] + ", ");
+				System.out.print(grid[i][j] + " ");
 			}
 			System.out.println("");
 		}
 		
+		for(int i = 0; i<grid[0].length;i++) {
+			System.out.print("==");
+		}
+		
+		System.out.println("");
+		
 		
 	}
 	
-	private static double lb2(int x) {
-		return (int) (Math.log(x) / Math.log(2));
-	}
+
 	
 	public static void main(String[] args) {
 		Splay s = new Splay();
 		
-		s.addNode(new Node(6));
+		s.addNode(new Node(9));
+		s.addNode(new Node(8));
 		s.addNode(new Node(7));
-		s.addNode(new Node(4));
-//		s.addNode(new Node(3));
+//		s.addNode(new Node(6));
 //		s.addNode(new Node(5));
 //		s.addNode(new Node(4));
-		s.addNode(new Node(8));
-//		s.addNode(new Node(9));
-//		s.addNode(new Node(1));
+//		s.addNode(new Node(3));
 //		s.addNode(new Node(2));
+//		s.addNode(new Node(1));
 //		s.addNode(new Node(0));
 
 		
-		System.out.println("Height: " + s.getHeight(s.root));
+		s.searchNode(7);
+//		print(s);
+//		System.exit(1);
 		
-//		s.log();
+//		s.searchNode(9);
+//		s.searchNode(0);
+//		s.searchNode(9);
+//		s.searchNode(6);
+//		s.searchNode(9);
 		
-		
-//		System.out.println(s.searchNode(9));
-//		print(s.root,7);
-		
-		print2(s,s.root);
-		System.exit(1);
-		
-		
-		
-		s.log();
-		print(s.root,7);
-		
-
-		
-//		print(s.root, 5);
 		
 		Random r = new Random(4);
+
 		
-		int range = 100;
+		
+		int range = 1000;
 		
 		System.out.println("Testing rn");
 		
 		Splay splay = new Splay();
-		for(int i=0;i<100;i++) {
+		for(int i=0;i<10000;i++) {
 			splay.addNode(new Node(r.nextInt(range)));
 			
 			int guess = r.nextInt(range);
@@ -393,7 +338,7 @@ public class Splay implements SearchTree {
 				}else {
 					System.out.println("Failed");
 					System.out.println("Searching for: " + guess);
-					print(splay.root,10);
+					print(splay);
 					System.exit(1);
 				}
 			}
