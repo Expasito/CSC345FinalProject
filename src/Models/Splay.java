@@ -65,19 +65,28 @@ public class Splay implements SearchTree {
 	}
 
 	/**
-	 * searchNode 
+	 * searchNode searches for a value in the tree
+	 * @param int value the value to search for
+	 * @return if the value was in the tree or not
+	 * 
+	 * searchNode will call splay() if the node is found
 	 */
 	@Override
 	public boolean searchNode(int value) {
 		Node base = root;
 		while(base != null) {
+			// increase accessCount for each iteration
 			accessCount++;
+			
+			// traverse left
 			if(base.value > value) {
 				base = base.left;
 			}
+			// traverse right
 			else if(base.value < value) {
 				base = base.right;
 			}
+			// we found it so splay and return true
 			else if(base.value == value) {
 				
 				// now splay to move it to the top
@@ -85,21 +94,29 @@ public class Splay implements SearchTree {
 				return true;
 			}
 		}
+		
+		// end of tree so not found
 		return false;
 	}
 	
+	
+	/**
+	 * splay moves Node 'n' up the tree to the root by using left and right rotations
+	 * @param n The node to move up the tree
+	 */
 	private void splay(Node n) {
 		
+		// get the parent node
 		Node par = n.parent;
 		
-		// incase of the root being the searched value
+		// incase of the root being the searched value or we are at the root
 		if(par == null) {
 			return;
 		}
 		
 		// right rotate parent
 		if(par.left == n) {
-			
+			// we are moving up a level so increased cost
 			accessCount++;
 			
 			
@@ -124,19 +141,22 @@ public class Splay implements SearchTree {
 				root = n;
 				return;
 			}
+			
+			// now update the parent's children
 			if(par_.left == par) {
 				par_.left = n;
 			}else if(par_.right == par) {
 				par_.right = n;
 			}
 			
-			
+			// recurse on the node with its new position
 			splay(n);
 			
 		}
 		// left rotate parent
 		else if(par.right == n) {
 			
+			// increased cost
 			accessCount++;
 			
 			// swap n's left child
@@ -160,17 +180,16 @@ public class Splay implements SearchTree {
 				root = n;
 				return;
 			}
+			
+			// update the parent's children
 			if(par_.left == par) {
 				par_.left = n;
 			}else if(par_.right == par) {
 				par_.right = n;
 			}
 			
-			
+			// and recurse on the node with its new position
 			splay(n);
-			
-			
-			
 			
 		}
 
