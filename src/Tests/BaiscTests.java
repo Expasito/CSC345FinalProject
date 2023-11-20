@@ -5,10 +5,16 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
+import Models.BST;
+import Models.Node;
 import Models.SearchTree;
 import Models.Splay;
 
-class BasicTests {
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+
+class BaiscTests {
 	private static Random gen = new Random(System.currentTimeMillis());
     private static ArrayList<Integer> exp = new ArrayList<Integer>();
 	@Test
@@ -20,7 +26,7 @@ class BasicTests {
 		SearchTree st3 = new BST();
 		SearchTree spl3 = new Splay();
 		SearchTree spl4 = new Splay();
-		SearchTree st4, new BST();
+		SearchTree st4 = new BST();
 		test1(st);
 		test2(st2, spl2);
 		test3(st3, spl3);

@@ -3,6 +3,11 @@ package Models;
 import java.util.LinkedList;
 import java.util.Random;
 
+/**
+ * Splay is a splay tree with appropriate methods. 
+ * A splay tree is a version of a Binary Search Tree where recently searched nodes
+ * are closer to the root of the tree.
+ */
 public class Splay implements SearchTree {
 	
 	private int accessCount = 0;
@@ -13,25 +18,45 @@ public class Splay implements SearchTree {
 		root = null;
 	}
 
+	/**
+	 * addNode adds a node to the tree 
+	 * @param Node node the node object to add
+	 */
 	@Override
 	public void addNode(Node node) {
 		root = addNode(root, node);
 	}
 	
+	/**
+	 * addNode is a helper method which recursivly traverses the tree to add
+	 * a node
+	 * @param root The current root of the tree, which can be a subtree
+	 * @param node The node to add
+	 * @return The node object that has been updated
+	 */
 	private Node addNode(Node root, Node node) {
+		
+		// increment the access count
 		accessCount++;
+		
+		// if the root is null, set the root to null and then return it for the parent to be reassigned.
 		if(root == null) {
 			root = node;
 			return root;
-		}else {
+		}
+		else {
+			// traverse left
 			if(root.value > node.value) {
 				root.left = addNode(root.left,node);
 				root.left.parent = root;
 			}
+			// traverse right
 			else if(root.value < node.value) {
 				root.right = addNode(root.right, node);
 				root.right.parent = root;
-			} else {
+			} 
+			// equal so a duplicate so we ignore
+			else {
 				// Nothing, duplicate value
 			}
 			return root;
@@ -39,6 +64,9 @@ public class Splay implements SearchTree {
 		}
 	}
 
+	/**
+	 * searchNode 
+	 */
 	@Override
 	public boolean searchNode(int value) {
 		Node base = root;
@@ -51,6 +79,8 @@ public class Splay implements SearchTree {
 				base = base.right;
 			}
 			else if(base.value == value) {
+				
+				// now splay to move it to the top
 				splay(base);
 				return true;
 			}
