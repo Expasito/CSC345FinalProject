@@ -1,5 +1,6 @@
-package Models;
+package Tests;
 
+import Models.*
 import java.util.Random;
 
 public class testSplayFunction {
