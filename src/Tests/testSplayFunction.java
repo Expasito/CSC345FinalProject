@@ -1,3 +1,9 @@
+/**
+* this test case tests the splay function which where the rotation happens
+* for this we print the in order traversal of the tree, we splay and then print it again, 
+* they should be the same as in order gives you an the values ordered
+* we do this in different sized trees to cover all edge cases
+*/
 package Tests;
 
 import Models.*
@@ -7,8 +13,11 @@ public class testSplayFunction {
 
 	public static void main(String[] args) {
 
+		// get random numbers
 		Random gen = new Random(System.currentTimeMillis());
 		gen.setSeed(0);
+
+		// initialize the tree
 		Splay s = new Splay();
 
 		for (int j = 1; j < 15; j++) {
@@ -17,20 +26,30 @@ public class testSplayFunction {
 				v = gen.nextInt(i + 100);
 				s.addNode(new Node(v));
 			}
-			log(s);
+			log(s);		// print in order traversal before splaying
 			s.splay(new Node(v));
-			log(s);
-			System.out.println("\n\n\n");
+			log(s);		// print in order traversal after splaying
+			System.out.println("\n\n\n");	// print newlines to 
 		}
 
 	}
 
+	/**
+	* prints the access count and the in order traversal of the tree that is passed in
+ 	* @param t	is a splay tree reference
+  	* @return void
+	*/ 
 	public static void log(Splay t) {
 		System.out.println("Access Count: " + t.getAcessCount());
 		log(t.root);
 		System.out.println("");
 	}
 
+	/**
+	* helper function to print the in order traversal
+	* @param root	is the root of the tree
+	* @return void
+ 	*/
 	private static void log(Node root) {
 		if (root == null) {
 			// do nothing
