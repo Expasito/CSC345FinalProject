@@ -15,8 +15,8 @@ import Models.Splay;
 class BasicTests {
 	private static Random gen = new Random(System.currentTimeMillis());
     private static ArrayList<Integer> exp = new ArrayList<Integer>();
-	@Test
-	void test() {
+    
+	public static void main(String[] args) {
 		SearchTree st = new BST();
 		SearchTree spl = new Splay();
 		SearchTree st2 = new BST();
@@ -32,11 +32,9 @@ class BasicTests {
 		test3(st3, spl3);
 		test4(st4, spl4);
 		test5(st5, spl5);
-//		fail("Not yet implemented");
-
 	}
 	
-	void test1(SearchTree st, SearchTree spl) {
+	static void test1(SearchTree st, SearchTree spl) {
 		System.out.println("starting test 1 ---");
 		int count = 0;
 		while (count< 100) {
@@ -60,7 +58,7 @@ class BasicTests {
 		}
 
 	}
-	void test2(SearchTree st, SearchTree spl) {
+	static void test2(SearchTree st, SearchTree spl) {
 		System.out.println("test 2 start---");
 		int conNumb =0;
 		int count =0;
@@ -105,7 +103,7 @@ class BasicTests {
 		}
 	}
 	
-	void test3(SearchTree st, SearchTree spl) {
+	static void test3(SearchTree st, SearchTree spl) {
 		System.out.println("Test 3 start---");
 		int[] controlTest = new int[] {10, 9, 8, 7, 6, 5, 4, 3, 2,1,0};
 		for(int i = 0; i<controlTest.length;i++){
@@ -123,7 +121,7 @@ class BasicTests {
 
 		}
 	}
-	void test4(SearchTree st, SearchTree spl){
+	static void test4(SearchTree st, SearchTree spl){
 		System.out.println("test 4 start");
 		int[] testarr = new int[]{13, 12, 14, 11, 15, 9, 16, 8, 17, 7};
 		for(int i = 0; i<testarr.length;i++){
@@ -141,7 +139,7 @@ class BasicTests {
 		}
 		}
 	}
-	void test5(SearchTree st, SearchTree spl) {
+	static void test5(SearchTree st, SearchTree spl) {
 		System.out.println("Test 5 start---");
 		int[] test5Array = new int[100];
 		int[] searchArray = new int[] {30, 27, 86};
