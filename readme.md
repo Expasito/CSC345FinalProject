@@ -1,4 +1,4 @@
-# introduction
+# Introduction
 The code implements a Splay Tree, which in the inside is a Binary Search Tree, but the Splay Tree modifies itself so that the most recent searches are near the root of the tree,and because it is constantly changing, it is not balanced.
 
 You can call the same methods on both BST and the Splay Tree, they are named the same, you pass in the same things, and they do the same thing.
