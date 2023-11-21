@@ -17,12 +17,9 @@
 # clearAcessCount()
 - sets the access count to 0
   
-# log() 
-- prints the access count and pushes the root into the other log method
-  
-# log(Node root)
-- This method creates a print out of the node and its children
-
 # getHeight(Node n)
-- returns the height of the node n 
+- returns the height of the node n
+
+# BasicTests()
+- this class performs tests on the splay and BST trees to showcase that they work, and that the access count is perfoming better on splay when applicable
 
