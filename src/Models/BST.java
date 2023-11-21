@@ -51,8 +51,11 @@ public class BST implements SearchTree {
 			return new Node(value);
 		}
 
+		// add to the left
 		if (value < current.value) {
 			current.left = addNodeRecursive(current.left, value);
+
+			// add to the right
 		} else if (value > current.value) {
 			current.right = addNodeRecursive(current.right, value);
 		}
@@ -79,18 +82,23 @@ public class BST implements SearchTree {
 	 * @return current node in order to recurse
 	 */
 	private Node searchNodeRecursive(Node current, int value) {
+		// base case
 		if (current == null)
 			return null;
 
 		accessCount++;
+
+		// node was found
 		if (current.value == value) {
 			return current;
 		}
 
+		// go left
 		if (value < current.value) {
 			return searchNodeRecursive(current.left, value);
 		}
 
+		// go right
 		return searchNodeRecursive(current.right, value);
 	}
 
