@@ -13,7 +13,7 @@ package Models;
 
 public class BST implements SearchTree {
 	// root node of the tree
-	Node root;
+	public Node root;
 
 	// counts how many times the nodes of the tree have been accessed
 	private int accessCount = 0;

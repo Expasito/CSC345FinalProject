@@ -11,7 +11,7 @@ public class Splay implements SearchTree {
 	private int accessCount = 0;
 	
 	// The Node reference for the tree
-	private Node root;
+	public Node root;
 	
 	/**
 	 * default constructor with no root
