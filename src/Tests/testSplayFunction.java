@@ -6,9 +6,14 @@
 */
 package Tests;
 
-import Models.*
+import Models.*;
 import java.util.Random;
 
+/**
+ * testSplayFunction is used to test the splay feature for our Splay tree
+ * It verifies that splaying does not mess up the order of the tree and
+ * to prove that splaying works well
+ */
 public class testSplayFunction {
 
 	public static void main(String[] args) {
@@ -22,14 +27,17 @@ public class testSplayFunction {
 
 		for (int j = 1; j < 15; j++) {
 			int v = 0;
+			Node spl = null;
+			// add a bunch of nodes
 			for (int i = 0; i < j; i++) {
 				v = gen.nextInt(i + 100);
-				s.addNode(new Node(v));
+				spl = new Node(v);
+				s.addNode(spl);
 			}
 			log(s);		// print in order traversal before splaying
-			s.splay(new Node(v));
+			s.splay(spl); // splay the last node
 			log(s);		// print in order traversal after splaying
-			System.out.println("\n\n\n");	// print newlines to 
+			System.out.println("\n\n\n");
 		}
 
 	}

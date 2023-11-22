@@ -114,7 +114,7 @@ public class Splay implements SearchTree {
 	 * splay moves Node 'n' up the tree to the root by using left and right rotations
 	 * @param n The node to move up the tree
 	 */
-	private void splay(Node n) {
+	public void splay(Node n) {
 		
 		// get the parent node
 		Node par = n.parent;

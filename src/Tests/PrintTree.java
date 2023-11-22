@@ -5,13 +5,43 @@ import java.util.LinkedList;
 import Models.Node;
 import Models.Splay;
 import Models.BST;
-import Models.SearchTree;
 
+/**
+ * PrintTree visually prints a BST or Splay Tree to the console for easy viewing.
+ * This allows for checking what the tree looks like and how transformations on a tree affect 
+ * its balance, etc.
+ * 
+ * Below in main is an example of how to use the print function.
+ */
 public class PrintTree {
 	
 	public static void main(String[] args) {
-		SearchTree st1 = new Splay();
-		SearchTree st2 = new BST();
+		Splay st1 = new Splay();
+		BST st2 = new BST();
+		
+		st1.addNode(new Node(5));
+		st1.addNode(new Node(3));
+		st1.addNode(new Node(7));
+		st1.addNode(new Node(6));
+		
+		
+		st2.addNode(new Node(1));
+		st2.addNode(new Node(2));
+		st2.addNode(new Node(3));
+		st2.addNode(new Node(5));
+		
+		print(st1.root, false);
+		print(st2.root, false);
+		
+		st1.addNode(new Node(9));
+		st1.addNode(new Node(11));
+		
+		print(st1.root, false);
+		
+		st2.addNode(new Node(4));
+		st2.addNode(new Node(7));
+		
+		print(st2.root, false);
 	}
 	
 
@@ -83,11 +113,18 @@ public class PrintTree {
 		
 	}
 	
-	private static void print(Splay s) {
+	/**
+	 * print prints a tree to the console based on a starting node.
+	 * This will print with nice formatting and lots of information
+	 * @param n The node to start printing from
+	 * @param fancy Should the output be fancy or just the key
+	 */
+	private static void print(Node n, boolean fancy) {
 		
-		// get the root of the tree and the height
-		Node n = s.root;
 		int height = getHeight(n);
+		if(height == 0) {
+			return;
+		}
 		
 		// create a string[] based on the height and the total number of nodes in the tree
 		String[][] grid = new String[height][(int) (Math.pow(2, height)-1)];
@@ -115,11 +152,18 @@ public class PrintTree {
 				continue;
 			}
 			
-			// Detailed prints so we can get parent and child references and the current value
-			String par = t.n.parent==null? "null" : String.valueOf(t.n.parent.value);
-			String left = t.n.left == null? "null" : String.valueOf(t.n.left.value);
-			String right = t.n.right == null ? "null" : String.valueOf(t.n.right.value);
-			String str = "V: " + t.n.value + ", " + "P: " + par + " L: " + left + " R: " + right + "   ";
+			String str = "";
+			if(fancy) {
+
+				// Detailed prints so we can get parent and child references and the current value
+				String par = t.n.parent==null? "null" : String.valueOf(t.n.parent.value);
+				String left = t.n.left == null? "null" : String.valueOf(t.n.left.value);
+				String right = t.n.right == null ? "null" : String.valueOf(t.n.right.value);
+				str = "V: " + t.n.value + ", " + "P: " + par + " L: " + left + " R: " + right + "   ";
+			}else {
+				str = String.valueOf(t.n.value);
+			}
+			
 			
 			// add the node to the grid in the right spot
 			grid[t.height][t.index] = String.valueOf(str);

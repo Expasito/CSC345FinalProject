@@ -1,17 +1,17 @@
 package Tests;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+
 import java.util.*;
 
-import org.junit.jupiter.api.Test;
 
 import Models.BST;
 import Models.Node;
 import Models.SearchTree;
 import Models.Splay;
 
+/**
+ * BasicTests is used to test the performance for the BST and Splay Tree
+ */
 class BasicTests {
 	private static Random gen = new Random(System.currentTimeMillis());
     private static ArrayList<Integer> exp = new ArrayList<Integer>();
@@ -27,6 +27,8 @@ class BasicTests {
 		SearchTree st4=  new BST();
 		SearchTree st5 = new BST();
 		SearchTree spl5 = new Splay();
+		
+		// now run all of the tests
 		test1(st, spl);
 		test2(st2, spl2);
 		test3(st3, spl3);
@@ -52,7 +54,7 @@ class BasicTests {
 			int n2 = gen.nextInt(100);
 			st.searchNode(n2);
 			if(i%10==0) {
-			System.out.println("node"+n2+"access count "+st.getAcessCount());
+			System.out.println("node "+n2+" access count "+st.getAcessCount());
 		}
 			System.out.println("");
 			System.out.println("splay node  "+spl.getAcessCount());
@@ -91,16 +93,16 @@ class BasicTests {
 				int nCon = 35;
 				st.searchNode(nCon);
 				spl.searchNode(nCon);
-				System.out.println("control node "+nCon+"get access count of control for bst "+st.getAcessCount()
-				+"splay access count "+spl.getAcessCount());
+				System.out.println("control node "+nCon+" get access count of control for bst "+st.getAcessCount()
+				+" splay access count "+spl.getAcessCount());
 				System.out.println("");
 			}else {
 			st.searchNode(n3);
 			spl.searchNode(n3);
 			}
 			if(j%50==0) {
-			System.out.println("for BST: node "+n3+"access count "+ st.getAcessCount());
-			System.out.println("for splay: node "+n3+"access count "+spl.getAcessCount());
+			System.out.println("for BST: node "+n3+" access count "+ st.getAcessCount());
+			System.out.println("for splay: node "+n3+" access count "+spl.getAcessCount());
 			}
 		}
 	}

@@ -5,7 +5,7 @@ package Models;
  * used for searching.
  */
 public interface SearchTree {
-	
+
 	/**
 	 * addNode adds a node to the tree, unless its already in there.
 	 * @param value The integer value to add to the tree
