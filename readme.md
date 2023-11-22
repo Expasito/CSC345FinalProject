@@ -38,3 +38,9 @@ If you want to reset the access count call, clearAccessCount() and it will retur
 # BasicTests()
 - this class performs tests on the splay and BST trees to showcase that they work, and that the access count is perfoming better on splay when applicable
 
+# PrintTree
+- this class prints a bst or splay tree to the console for easy viewing and testing. It can be used to make sure that a tree has the correct strucutre and maintains order
+
+# testSplayFunction
+- this class tests that the splay function works correctly and keeps the tree in order.
+
