@@ -64,7 +64,6 @@ class BasicTests {
 	static void test2(SearchTree st, SearchTree spl) {
 		//this tree has an even larger number of nodes but has a specific node that gets searched periodically to be a control
 		System.out.println("test 2 start---");
-		int conNumb =0;
 		int count =0;
 		while (count<500) {
 			int num = gen.nextInt(500);
